@@ -1,5 +1,5 @@
 """Implements a MySQL Persistence Wrapper"""
-
+import mysql.connector
 from persistence_wrapper_interface import PersistenceWrapperInterface
 from mysql import connector
 
@@ -18,16 +18,17 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 		self.DB_CONFIG['database'] = 'home_inventory'
 		self.DB_CONFIG['user'] = 'home_inventory_user'
 		self.DB_CONFIG['host'] = '127.0.0.1'
-		self.DB_CONFIG['port'] = 8889 
+		self.DB_CONFIG['port'] = 3306
 
 		# Database Connection
 		self._db_connection = self._initialize_database_connection(self.DB_CONFIG)
-
 
 	def get_all_inventories(self):
 		"""Returns a list of all rows in the inventories table"""
 		cursor = None
 		try:
+			# if __debug__:
+			# 	print(self.DB_CONFIG['port'])
 			cursor = self._db_connection.cursor()
 			cursor.execute(self.SELECT_ALL_INVENTORIES)
 			results = cursor.fetchall()
@@ -50,6 +51,7 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 
 	def create_inventory(self, name: str, description: str, date: str):
 		"""Insert new row into inventories table."""
+
 		pass
 
 
@@ -57,7 +59,8 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 		"""Insert new row into items table for given inventory id"""
 		pass
 		
-		
+		cur
+
 	def _initialize_database_connection(self, config):
 		"""Initializes and returns database connection pool."""
 		cnx = None
