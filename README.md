@@ -95,7 +95,7 @@ Select inventory id from list: 1
 ```
             Household Inventory Application
 
-		1. New Inventory (Not Implemented)
+		1. New Inventory 
 		2. List Inventories
 		3. Select Inventory
 		4. List Inventory Items
