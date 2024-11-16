@@ -78,7 +78,7 @@ class InventoryApp():
 				inventory_name = name.lower()
 				description= input("Enter a description for the new inventory: ").strip()
 				current_date = date.today()
-			#Valid Input
+				# Ensure inventory name not empty
 				if not name:
 					print("Inventory name cannot be empty. Operation canceled. ")
 					input("\nPress any key to continue...")
