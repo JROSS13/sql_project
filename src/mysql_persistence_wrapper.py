@@ -2,7 +2,7 @@
 import mysql.connector
 from persistence_wrapper_interface import PersistenceWrapperInterface
 from mysql import connector
-
+from datetime import date
 class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 	"""Implements MySQL Persistance Wrapper"""
 
@@ -11,6 +11,7 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 		# Constants
 		self.SELECT_ALL_INVENTORIES = 'SELECT id, name, description FROM inventories'
 		self.INSERT = 'INSERT INTO items (inventory_id, item, count) VALUES(%s, %s, %s)'
+		self.NEW_INVENTORY='INSERT INTO inventories (name, description, date) VALUES (%s, %s, %s)'
 		self.SELECT_ALL_ITEMS_FOR_INVENTORY_ID = 'SELECT id, inventory_id, item, count FROM items WHERE inventory_id = %s'
 
 		# Database Configuration Constants
@@ -51,15 +52,20 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 
 	def create_inventory(self, name: str, description: str, date: str):
 		"""Insert new row into inventories table."""
+		cursor = None
+		try:
+			params = (name, description, date)
+			cursor = self._db_connection.cursor()
+			cursor.execute(self.NEW_INVENTORY, params)
+			self._db_connection.commit()
 
-		pass
-
+			return cursor.lastrowid
+		except Exception as e:
+			print(f'Exception in persistance wrapper: {e}')
 
 	def create_item(self, inventory_id: int, item: str, count: int):
 		"""Insert new row into items table for given inventory id"""
 		pass
-		
-		cur
 
 	def _initialize_database_connection(self, config):
 		"""Initializes and returns database connection pool."""

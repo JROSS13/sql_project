@@ -3,7 +3,7 @@
 from business_logic import BusinessLogic
 from prettytable import PrettyTable
 import os
-
+from datetime import date
 class InventoryApp():
 	"""Implements household inventory control features."""
 
@@ -21,7 +21,7 @@ class InventoryApp():
 		self.keep_going = True
 		self.business_logic = BusinessLogic()
 		self.active_inventory_id = 0
-
+	
 	def clear_screen(self):
 		"""Clears the screen. It's either Unix-like or Windows."""
 		try:
@@ -68,11 +68,33 @@ class InventoryApp():
 	def new_inventory(self):
 		"""Create new inventory."""		
 		self.clear_screen()
-		if __debug__:
-			print('new_inventory() method called...')
-		input('\n\nThis method is not yet implemented. Press any key to continue: ')
+		keep_going = True
+		cursor = None
+		while keep_going:
+			if __debug__:
+				print('new_inventory() method called...')
+			try:
+				name = input("Enter the name of the new inventory: ").strip()
+				inventory_name = name.lower()
+				description= input("Enter a description for the new inventory: ").strip()
+				current_date = date.today()
+			#Valid Input
+				if not name:
+					print("Inventory name cannot be empty. Operation canceled. ")
+					input("\nPress any key to continue...")
+					continue
+				
+				inventory_id = self.business_logic.create_new_inventory(inventory_name, description, current_date)
+				if inventory_id:
+					print(f"\nInventory '{name}' created successfully with ID: {inventory_id}.")
+				else:
+					print("\nFailed to create inventory. Please try again.")
+				response = input("Would you like to add another inventory? (y/n) ")
+				if response.capitalize() == 'N':
+					keep_going = False
+			except Exception as e:
+				print(f"\nError creating inventory: {e}")
 		
-
 	def list_inventories(self):
 		"""List inventories."""
 		self.clear_screen()
@@ -87,7 +109,6 @@ class InventoryApp():
 		return self.business_logic.get_all_inventories()
 
 
-		
 	def select_inventory(self):
 		"""Selects an existing inventory"""
 		self.clear_screen()
@@ -106,13 +127,6 @@ class InventoryApp():
 					keep_going = False
 		except Exception as e:
 			print(f'Exception in select_inventory() method: {e}')
-			
-		
-
-		
-		
-		
-
 
 	def list_inventory_items(self):
 		"""List inventory items for inventory id contained in self.active_inventory_id field."""
