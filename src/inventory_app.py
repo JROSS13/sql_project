@@ -33,7 +33,7 @@ class InventoryApp():
 		"""Display menu."""
 		print('\t\t\tHousehold Inventory Application')
 		print()
-		print('\t\t1. New Inventory (Not Implemented)')
+		print('\t\t1. New Inventory')
 		print('\t\t2. List Inventories')
 		print('\t\t3. Select Inventory')
 		print('\t\t4. List Inventory Items')
