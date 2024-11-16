@@ -49,7 +49,14 @@ class BusinessLogic():
 			print(f'Exception in business logic: {e}')
 		return inventory_id
 
-
+	def create_new_item(self, inventory_id: int, item: str, count: int):
+		"""Adds a new item to selected inventory."""
+		try:
+			new_item = self._persistence_wrapper.create_item(inventory_id, item, count)
+		except Exception as e:
+			print(f'Exception in business logic: {e}')
+		return new_item
+	
 	def get_items_for_inventory_id(self, id):
 		"""Gets all items for given inventory id."""
 		query_results = None
