@@ -1,5 +1,5 @@
 """Implements a MySQL Persistence Wrapper"""
-import mysql.connector
+
 from persistence_wrapper_interface import PersistenceWrapperInterface
 from mysql import connector
 from datetime import date
@@ -65,6 +65,14 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 
 	def create_item(self, inventory_id: int, item: str, count: int):
 		"""Insert new row into items table for given inventory id"""
+		cursor = None
+		try:
+			params = (inventory_id, item, count)
+			cursor = self._db_connection.cursor()
+			cursor.execute(self.INSERT, params)
+			self._db_connection.commit()
+		except Exception as e:
+			print(f'Exception in persistance wrapper: {e}')
 		pass
 
 	def _initialize_database_connection(self, config):

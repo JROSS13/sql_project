@@ -1,4 +1,4 @@
-# Clean Architecture Example
+# Home Inventory Application
 
 This project demonstrates the following concepts:
 - Separation of concerns
@@ -30,9 +30,7 @@ This project comes with a `build.sh` file which should be used because it assume
 To run the application type: `./build.sh --runmain` in a bash terminal. To get help simply type `./build.sh` with no arguments. The build script checks for a valid execution environment as shown in the output shown below.
 
 ```
-Thu Nov 24 07:45:32 EST 2022
-~/dev/dev.classes/it-566-computer-scripting/python/clean_architecture (main)
-[517:17] swodog@RicksMacPro $ ./build.sh
+$ ./build.sh
 Checking for required tools...
 mysql: OK
 git: OK
@@ -42,14 +40,15 @@ pipenv: OK
 -----------------------------------------
  Usage: ./build.sh [ --help | --checktools | no argument | --install | --runmain | --runtests ]
 
- Examples: ./build.sh --checktools   		# Show this usage message
-           ./build.sh --help         		# Check for required tools
-           ./build.sh                		# Default: -checktools and -help
-           ./build.sh --install      		# pipenv install
-           ./build.sh --runmain      		# pipenv run python3 src/main.py
-           ./build.sh --runtests     		# pipenv run pytest
-           ./build.sh --checkdoccomments	# pipevn run pydocstyle src/
-           ./build.sh --initialize_database	# source database/initialize_database.sh
+ Examples: ./build.sh --checktools              # Show this usage message
+           ./build.sh --help                    # Check for required tools
+           ./build.sh                           # Default: -checktools and -help
+           ./build.sh --install                 # pipenv install
+           ./build.sh --runmain                 # pipenv run python3 src/main.py
+           ./build.sh --runtests                # pipenv run pytest
+           ./build.sh --checkdoccomments        # pipevn run pydocstyle src/
+           ./build.sh --initialize_database     # source database/initialize_database.sh
+
 ```
 
 ## Where To Go From Here
@@ -59,7 +58,7 @@ Not all functionality is implemented. The menu indicates what works and what doe
 ```
             Household Inventory Application
 
-		1. New Inventory (Not Implemented)
+		1. New Inventory 
 		2. List Inventories
 		3. Select Inventory
 		4. List Inventory Items
