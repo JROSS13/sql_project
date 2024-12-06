@@ -37,12 +37,12 @@ class InventoryApp():
 		print('\t\t2. List Inventories')
 		print('\t\t3. Select Inventory')
 		print('\t\t4. List Inventory Items')
-		print('\t\t5. Add Items (Not Implemented)')
+		print('\t\t5. Add Items ')
 		print('\t\t6. Exit')
 		print()
 
 	def process_menu_choice(self):
-		"""Process menu choice and execute corrensponding methods."""
+		"""Process menu choice and execute corresponding methods."""
 		self.menu_choice = input('Please enter menu item number: ')
 		if __debug__: 
 			print(f'You entered: {self.menu_choice}')
@@ -125,6 +125,7 @@ class InventoryApp():
 				response = input(f'You entered {str(self.active_inventory_id)}. Is this correct? (y/n) ')
 				if response.capitalize() == 'Y':
 					keep_going = False
+			return self.active_inventory_id
 		except Exception as e:
 			print(f'Exception in select_inventory() method: {e}')
 
@@ -133,17 +134,42 @@ class InventoryApp():
 		self.clear_screen()
 		if __debug__:
 			print('list_inventory_items() method called...')
-		items_list = self.business_logic.get_items_for_inventory_id(self.active_inventory_id)
-		self.print_items_list(items_list)
+		inventory_list = None
+		try:
+			inventory_list = self._get_inventories()
+			self.print_inventory_list(inv_list=inventory_list)
+			self.active_inventory_id = int(input('\n\nSelect inventory id you would like to view: '))
+			items_list = self.business_logic.get_items_for_inventory_id(self.active_inventory_id)
+			self.print_items_list(items_list)
+		except Exception as e:
+			print(f'Exception in list_inventory_items() method: {e}')
 		input('\n\nPress any key to continue...')
 		
 
 	def add_items(self):
 		"""Add items to inventory."""
-		if __debug__:
-			print('add_items() method called...')
-		input('\n\vThis method is not yet implemented. Press any key to continue: ')
-
+		try:
+			if __debug__:
+				print('add_items() method called...')
+			items_list = self.business_logic.get_items_for_inventory_id(self.active_inventory_id)
+			self.active_inventory_id = self.select_inventory()
+			ID = int(self.active_inventory_id)
+			keep_going = True
+			while keep_going:
+				print(f"Current inventory ID: {ID}")
+				items = input("Enter the item you would like to add: ")
+				count = int(input(f"Enter the quantity: "))
+				if __debug__:
+					print(f"{ID}, {items}, {count}")
+				add_items = self.business_logic.create_new_item(ID, items, count)
+				if add_items is None:
+					print(f"Successfully added {count} {items}(s) to ID {ID} ")
+				response= input("Would you like to add another item to this ID? (y/n): ")
+				if response.capitalize() == 'N':
+					keep_going = False
+					input('\n\n Items added. Press any key to continue...')
+		except Exception as e:
+			print(f'Exception in select_inventory() method: {e}')
 
 	def start_application(self):
 		"""Start the applications."""
