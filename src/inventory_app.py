@@ -42,7 +42,7 @@ class InventoryApp():
 		print()
 
 	def process_menu_choice(self):
-		"""Process menu choice and execute corrensponding methods."""
+		"""Process menu choice and execute corresponding methods."""
 		self.menu_choice = input('Please enter menu item number: ')
 		if __debug__: 
 			print(f'You entered: {self.menu_choice}')
@@ -134,8 +134,15 @@ class InventoryApp():
 		self.clear_screen()
 		if __debug__:
 			print('list_inventory_items() method called...')
-		items_list = self.business_logic.get_items_for_inventory_id(self.active_inventory_id)
-		self.print_items_list(items_list)
+		inventory_list = None
+		try:
+			inventory_list = self._get_inventories()
+			self.print_inventory_list(inv_list=inventory_list)
+			self.active_inventory_id = int(input('\n\nSelect inventory id you would like to view: '))
+			items_list = self.business_logic.get_items_for_inventory_id(self.active_inventory_id)
+			self.print_items_list(items_list)
+		except Exception as e:
+			print(f'Exception in list_inventory_items() method: {e}')
 		input('\n\nPress any key to continue...')
 		
 
@@ -157,7 +164,7 @@ class InventoryApp():
 				add_items = self.business_logic.create_new_item(ID, items, count)
 				if add_items is None:
 					print(f"Successfully added {count} {items}(s) to ID {ID} ")
-				response= input("Would you like to add another item to this ID? (y/n)")
+				response= input("Would you like to add another item to this ID? (y/n): ")
 				if response.capitalize() == 'N':
 					keep_going = False
 					input('\n\n Items added. Press any key to continue...')
