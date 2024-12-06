@@ -141,24 +141,28 @@ class InventoryApp():
 
 	def add_items(self):
 		"""Add items to inventory."""
-		if __debug__:
-			print('add_items() method called...')
-		items_list = self.business_logic.get_items_for_inventory_id(self.active_inventory_id)
-		self.active_inventory_id = self.select_inventory()
-		ID = int(self.active_inventory_id)
-		print(f"Current inventory ID: {ID}")
-		items = input("Enter the item you would like to add: ")
-		count = int(input(f"Enter the quantity: "))
-		if __debug__:
-			print(f"{ID}, {items}, {count}")
-		add_items = self.business_logic.create_new_item(ID, items, count)
-		if add_items:
-			print(f"Successfully add {count} {items} to inventory {ID}")
-		else:
-			print("\nFailed to add item. Please try again.")
-			
-		input('\n\vThis method is not yet implemented. Press any key to continue: ')
-
+		try:
+			if __debug__:
+				print('add_items() method called...')
+			items_list = self.business_logic.get_items_for_inventory_id(self.active_inventory_id)
+			self.active_inventory_id = self.select_inventory()
+			ID = int(self.active_inventory_id)
+			keep_going = True
+			while keep_going:
+				print(f"Current inventory ID: {ID}")
+				items = input("Enter the item you would like to add: ")
+				count = int(input(f"Enter the quantity: "))
+				if __debug__:
+					print(f"{ID}, {items}, {count}")
+				add_items = self.business_logic.create_new_item(ID, items, count)
+				if add_items is None:
+					print(f"Successfully added {count} {items}(s) to ID {ID} ")
+				response= input("Would you like to add another item to this ID? (y/n)")
+				if response.capitalize() == 'N':
+					keep_going = False
+					input('\n\n Items added. Press any key to continue...')
+		except Exception as e:
+			print(f'Exception in select_inventory() method: {e}')
 
 	def start_application(self):
 		"""Start the applications."""

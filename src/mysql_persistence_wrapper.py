@@ -73,7 +73,6 @@ class MySQLPersistenceWrapper(PersistenceWrapperInterface):
 			self._db_connection.commit()
 		except Exception as e:
 			print(f'Exception in persistance wrapper: {e}')
-		pass
 
 	def _initialize_database_connection(self, config):
 		"""Initializes and returns database connection pool."""
