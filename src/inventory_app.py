@@ -37,7 +37,7 @@ class InventoryApp():
 		print('\t\t2. List Inventories')
 		print('\t\t3. Select Inventory')
 		print('\t\t4. List Inventory Items')
-		print('\t\t5. Add Items (Not Implemented)')
+		print('\t\t5. Add Items ')
 		print('\t\t6. Exit')
 		print()
 
