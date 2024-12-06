@@ -62,7 +62,7 @@ Not all functionality is implemented. The menu indicates what works and what doe
 		2. List Inventories
 		3. Select Inventory
 		4. List Inventory Items
-		5. Add Items (Not Implemented)
+		5. Add Items 
 		6. Exit
 
 Please enter menu item number:
@@ -99,7 +99,7 @@ Select inventory id from list: 1
 		2. List Inventories
 		3. Select Inventory
 		4. List Inventory Items
-		5. Add Items (Not Implemented)
+		5. Add Items
 		6. Exit
 
 Please enter menu item number: 4
